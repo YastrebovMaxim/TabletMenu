@@ -134,6 +134,13 @@
             <version>${org.spring.version}</version>
             <scope>test</scope>
         </dependency>
+        <!--In memory database driver-->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.190</version>
+        </dependency>
+
     </dependencies>
 
 </project>
