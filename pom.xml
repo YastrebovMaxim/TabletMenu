@@ -10,7 +10,9 @@
     <!-- Shared version number properties -->
     <properties>
         <org.spring.version>4.1.5.RELEASE</org.spring.version>
+        <spring-data-jpa.version>1.7.2.RELEASE</spring-data-jpa.version>
     </properties>
+
     <dependencies>
         <!-- Core utilities used by other modules.
             Define this if you use Spring Utility APIs
@@ -88,6 +90,13 @@
             <artifactId>spring-orm</artifactId>
             <version>${org.spring.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
         <!-- Object-to-XML Mapping (OXM) abstraction and integration with JAXB, JiBX,
             Castor, XStream, and XML Beans.
             (depends on spring-core, spring-beans, spring-context)
@@ -140,7 +149,20 @@
             <artifactId>h2</artifactId>
             <version>1.4.190</version>
         </dependency>
-
+        <!--for tests-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+        <!--for tests-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
