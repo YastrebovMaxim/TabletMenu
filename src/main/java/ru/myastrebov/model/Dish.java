@@ -16,13 +16,13 @@ public class Dish {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", columnDefinition = "Название блюда")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", columnDefinition = "Описание блюда", length = 1024)
+    @Column(name = "description", length = 1024)
     private String description;
 
-    @Column(name = "cost", columnDefinition = "Стоимость блюда")
+    @Column(name = "cost", nullable = false)
     private Long cost;
     //private List<Image> photos;
 
@@ -33,6 +33,8 @@ public class Dish {
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false)}
     )
     private List<DishTag> tags;
+
+
 
     public String getName() {
         return name;

@@ -12,7 +12,7 @@ public class DishTag {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "tag_name", columnDefinition = "Нименование тэга", unique = true, nullable = false)
+    @Column(name = "tag_name", unique = true, nullable = false)
     private String tagName;
 
     public DishTag() {
