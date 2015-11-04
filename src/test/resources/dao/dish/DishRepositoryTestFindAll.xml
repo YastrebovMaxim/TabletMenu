@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <DISH id="1" name="tee" description="green tee with lemon" cost="125"/>
+    <DISH id="2" name="latte" description="latte" cost="46"/>
+</dataset>
