@@ -2,7 +2,6 @@ package ru.myastrebov.dao;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
-import ru.myastrebov.model.Dish;
 
 import java.io.Serializable;
 import java.util.List;

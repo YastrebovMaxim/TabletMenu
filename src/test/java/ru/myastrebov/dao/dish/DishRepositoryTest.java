@@ -5,25 +5,27 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.myastrebov.dao.config.BaseDaoTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.myastrebov.dao.anotations.RepositoryTest;
 import ru.myastrebov.model.Dish;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
 //TODO поискать другой способ очистки базы данных
+@RunWith(SpringJUnit4ClassRunner.class)
+@RepositoryTest
 @DatabaseSetup(
         type = DatabaseOperation.CLEAN_INSERT,
         value = "/dao/dish/DishRepositoryTestEmptyDataBase.xml"
 )
-public class DishRepositoryTest extends BaseDaoTest {
+public class DishRepositoryTest {
 
     @Autowired
     private DishRepository uut;

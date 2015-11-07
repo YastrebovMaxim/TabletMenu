@@ -3,12 +3,11 @@ package ru.myastrebov.dao.config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -23,10 +22,8 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {
-        "ru.myastrebov.dao"
-})
-@ComponentScan(basePackages = {"ru.myastrebov.dao.config"})
+@EnableJpaRepositories(basePackages = {"ru.myastrebov.dao"})
+@ComponentScan(basePackages = {"ru.myastrebov.dao"})
 @PropertySource("classpath:dataBaseConfig.properties")
 public class DaoConfiguration {
 
@@ -34,7 +31,9 @@ public class DaoConfiguration {
     private Environment environment;
 
     @Bean
-    DataSource dataSource() {
+    @Profile("production")
+    DataSource productionDataSource() {
+        System.out.println("****************************");
         HikariConfig dataSourceConfig = new HikariConfig();
         dataSourceConfig.setDriverClassName(environment.getRequiredProperty("db.driver"));
         dataSourceConfig.setJdbcUrl(environment.getRequiredProperty("db.url"));
@@ -43,7 +42,16 @@ public class DaoConfiguration {
         return new HikariDataSource(dataSourceConfig);
     }
 
-    @Bean//TODO understand!
+    @Bean
+    @Profile("dev")
+    public DataSource devDataSource() {
+        System.out.println("///////////////////////////");
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.HSQL)
+                .build();
+    }
+
+    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
                                                                 Environment env) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
