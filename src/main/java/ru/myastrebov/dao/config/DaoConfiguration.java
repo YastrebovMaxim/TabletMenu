@@ -32,8 +32,7 @@ public class DaoConfiguration {
 
     @Bean
     @Profile("production")
-    DataSource productionDataSource() {
-        System.out.println("****************************");
+    public DataSource productionDataSource() {
         HikariConfig dataSourceConfig = new HikariConfig();
         dataSourceConfig.setDriverClassName(environment.getRequiredProperty("db.driver"));
         dataSourceConfig.setJdbcUrl(environment.getRequiredProperty("db.url"));
@@ -44,8 +43,7 @@ public class DaoConfiguration {
 
     @Bean
     @Profile("dev")
-    public DataSource devDataSource() {
-        System.out.println("///////////////////////////");
+    public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.HSQL)
                 .build();

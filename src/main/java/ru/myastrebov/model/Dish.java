@@ -1,7 +1,5 @@
 package ru.myastrebov.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
 public class Dish {
 
     @Id @GeneratedValue
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -26,8 +24,7 @@ public class Dish {
     private Long cost;
     //private List<Image> photos;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "tag_to_dish",
             joinColumns = {@JoinColumn(name = "dish_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false)}

@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
 * в моём случае это dataSource
 * */
 @ActiveProfiles("dev")
-@ContextConfiguration(classes = {DaoConfiguration.class})
+@ContextConfiguration(classes = DaoConfiguration.class)
 /*
 * Список "слушатель", обрабатывающих запуск теста, включаются при использовании
 * определённых аннтоцай

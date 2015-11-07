@@ -18,6 +18,10 @@ public class DishTag {
     public DishTag() {
     }
 
+    public DishTag(String tagName) {
+        this.tagName = tagName;
+    }
+
     public Long getId() {
         return id;
     }

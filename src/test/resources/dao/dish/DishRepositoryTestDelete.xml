@@ -1,4 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
     <DISH id="2" name="latte" description="latte" cost="46"/>
+
+    <DISH_TAG id="1" tag_name="drinks"/>
+    <DISH_TAG id="2" tag_name="warm"/>
+
+    <TAG_TO_DISH dish_id="2" tag_id="2"/>
 </dataset>
