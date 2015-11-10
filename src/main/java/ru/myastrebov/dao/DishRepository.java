@@ -1,8 +1,7 @@
-package ru.myastrebov.dao.dish;
+package ru.myastrebov.dao;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ru.myastrebov.dao.BaseRepository;
 import ru.myastrebov.model.Dish;
 
 import java.util.List;

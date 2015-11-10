@@ -1,4 +1,4 @@
-package ru.myastrebov.dao.dish;
+package ru.myastrebov.dao;
 
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -16,7 +16,7 @@ import ru.myastrebov.model.DishTag;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
@@ -61,12 +61,11 @@ public class DishRepositoryTest {
         assertThat(dish.getName(), equalTo("tee"));
         assertThat(dish.getDescription(), equalTo("green tee with lemon"));
         assertThat(dish.getCost(), equalTo(125L));
-        assertThat(dish.getTags(), hasSize(2));
     }
 
     @Test
     @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/dao/dish/DishRepositoryTestFindAll.xml")
-    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.DEFAULT, value = "/dao/dish/DishRepositoryTestDelete.xml")
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT, value = "/dao/dish/DishRepositoryTestDelete.xml")
     public void testDelete() throws Exception {
         Optional<Dish> dishOptional = uut.findOne(1L);
         assertThat(dishOptional.isPresent(), is(true));

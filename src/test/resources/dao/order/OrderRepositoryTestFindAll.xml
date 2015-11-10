@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <ORDERS id="1" ORDER_CREATION_TIME="2015-11-23 10:56:43" order_comment="green tee with lemon"/>
+
+    <ORDERED_DISH id="1" dish_id="1" order_id="1" start_cooking_time="2015-11-23 10:56:43"/>
+    <ORDERED_DISH id="2" dish_id="2" order_id="1" start_cooking_time="2015-11-23 10:56:43"/>
+</dataset>
