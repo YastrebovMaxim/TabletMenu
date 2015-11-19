@@ -6,11 +6,15 @@ import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.annotation.ExpectedDatabases;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.google.common.collect.Lists;
+import org.hamcrest.Matchers;
+import org.hibernate.LazyInitializationException;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.myastrebov.dao.anotations.RepositoryTest;
+import ru.myastrebov.model.DinnerWagon;
 import ru.myastrebov.model.Dish;
 import ru.myastrebov.model.Order;
 import ru.myastrebov.model.OrderedDish;
@@ -24,6 +28,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -42,6 +47,9 @@ public class OrderRepositoryTest {
     @Autowired
     private DishRepository dishRepository;
 
+    @Autowired
+    private DinnerWagonRepository dinnerWagonRepository;
+
     @Test
     @DatabaseSetup(type = DatabaseOperation.INSERT, value = "/dao/order/OrderRepositoryTestFindAll.xml")
     public void testFindAll() throws Exception {
@@ -53,17 +61,23 @@ public class OrderRepositoryTest {
     }
 
     @Test
+    @DatabaseSetup(type = DatabaseOperation.INSERT, value = "/dao/dinnerWagon/DinnerWagonRepositoryTestFindAll.xml")
     @ExpectedDatabases(value = {
             @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/dao/order/OrderRepositoryTestSaveOne.xml"),
-            @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/dao/dish/DishRepositoryTestFindAll.xml")
+            @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/dao/dish/DishRepositoryTestFindAll.xml"),
+            @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/dao/dinnerWagon/DinnerWagonRepositoryTestFindAll.xml")
     })
     public void testSaveOne() throws Exception {
         Optional<Dish> dishOptional = dishRepository.findOne(1L);
-        assertThat(dishOptional.isPresent(), is(true));
+        assertTrue(dishOptional.isPresent());
+
+        Optional<DinnerWagon> dinnerWagonOptional = dinnerWagonRepository.findOne(1L);
+        assertTrue(dinnerWagonOptional.isPresent());
 
         Order order = new Order();
         order.setCreationTime(orderCreationTime);
         order.setOrderComment("comment");
+        order.setDinnerWagon(dinnerWagonOptional.get());
 
         OrderedDish orderedDish = new OrderedDish(dishOptional.get());
         orderedDish.setOrder(order);
@@ -99,5 +113,22 @@ public class OrderRepositoryTest {
         assertThat(order, is(notNullValue()));
 
         uut.delete(order);
+    }
+
+    @Test(expected = LazyInitializationException.class)
+    @DatabaseSetup(type = DatabaseOperation.INSERT, value = "/dao/order/OrderRepositoryTestFindAll.xml")
+    public void testLazyInitializationException() throws Exception {
+        Optional<Order> orderOptional = uut.findOne(1L);
+        assertTrue(orderOptional.isPresent());
+        orderOptional.get().getOrderedDishList().size();
+        assertFalse("This line wil not perform", true);
+    }
+
+    @Test
+    @DatabaseSetup(type = DatabaseOperation.INSERT, value = "/dao/order/OrderRepositoryTestFindAll.xml")
+    public void testFindOrderByIdAndFetchDishesEarly() throws Exception {
+        Optional<Order> orderOptional = uut.findOrderAndFetchDishesEagerly(1L);
+        assertTrue(orderOptional.isPresent());
+        Assert.assertThat(orderOptional.get().getOrderedDishList(), Matchers.hasSize(2));
     }
 }

@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -31,8 +33,12 @@ public class Order {
     @Column(name = "order_creation_time", nullable = false)
     private LocalDateTime creationTime;
 
-    @Column(name = "end_cooking_time")
-    private LocalDateTime endCookingTime;
+    @Column(name = "close_order_time")
+    private LocalDateTime closeOrderTime;
+
+    @ManyToOne
+    @JoinColumn(name = "dinner_wagon_id", nullable = false)
+    private DinnerWagon dinnerWagon;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderedDish> orderedDishList;
@@ -64,12 +70,12 @@ public class Order {
         this.creationTime = creationTime;
     }
 
-    public LocalDateTime getEndCookingTime() {
-        return endCookingTime;
+    public LocalDateTime getCloseOrderTime() {
+        return closeOrderTime;
     }
 
-    public void setEndCookingTime(LocalDateTime endCookingTime) {
-        this.endCookingTime = endCookingTime;
+    public void setCloseOrderTime(LocalDateTime closeOrderTime) {
+        this.closeOrderTime = closeOrderTime;
     }
 
     public List<OrderedDish> getOrderedDishList() {
@@ -78,5 +84,13 @@ public class Order {
 
     public void setOrderedDishList(List<OrderedDish> orderedDishList) {
         this.orderedDishList = orderedDishList;
+    }
+
+    public DinnerWagon getDinnerWagon() {
+        return dinnerWagon;
+    }
+
+    public void setDinnerWagon(DinnerWagon dinnerWagon) {
+        this.dinnerWagon = dinnerWagon;
     }
 }

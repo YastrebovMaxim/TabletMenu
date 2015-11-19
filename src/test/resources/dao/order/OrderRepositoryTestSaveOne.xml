@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <ORDERS ORDER_CREATION_TIME="2015-11-23 10:56:43" order_comment="comment"/>
+    <ORDERS dinner_wagon_id="1" ORDER_CREATION_TIME="2015-11-23 10:56:43" order_comment="comment"/>
 
     <ORDERED_DISH dish_id="1"/>
 </dataset>

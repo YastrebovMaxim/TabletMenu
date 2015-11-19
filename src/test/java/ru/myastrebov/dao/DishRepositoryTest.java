@@ -5,6 +5,8 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.google.common.collect.Lists;
+import org.hibernate.LazyInitializationException;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 //TODO поискать другой способ очистки базы данных
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -95,6 +99,23 @@ public class DishRepositoryTest {
         List<Dish> dishList = uut.findByTagName("drinks");
         assertThat(dishList, notNullValue());
         assertThat(dishList, hasSize(1));
+    }
+
+    @Test(expected = LazyInitializationException.class)
+    @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/dao/dish/DishRepositoryTestFindAll.xml")
+    public void testLazyInitializationException() throws Exception {
+        Optional<Dish> dishOptional = uut.findOne(1L);
+        assertTrue(dishOptional.isPresent());
+        dishOptional.get().getTags().size();
+        assertFalse("This line wil not perform", true);
+    }
+
+    @Test
+    @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/dao/dish/DishRepositoryTestFindAll.xml")
+    public void testFindDishByIdAndFetchDishTagsEarly() throws Exception {
+        Optional<Dish> dishOptional = uut.findOneAndFetchAllLinksEagerly(1L);
+        assertTrue(dishOptional.isPresent());
+        Assert.assertThat(dishOptional.get().getTags(), hasSize(2));
     }
 
     private Dish prepareDish(String name, String description, long cost) {
