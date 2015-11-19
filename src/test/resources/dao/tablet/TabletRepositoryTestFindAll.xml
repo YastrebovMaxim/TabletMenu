@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <dinner_wagon id="1" is_free="0"/>
+    <dinner_wagon id="2" is_free="1"/>
+
+    <tablet id="1" dinner_wagon_id="2"/>
+    <tablet id="2" dinner_wagon_id="1"/>
+
+</dataset>
