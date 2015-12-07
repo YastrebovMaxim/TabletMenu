@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 @RepositoryTest
 @DatabaseSetup(type = DatabaseOperation.CLEAN_INSERT, value = "/dao/tablet/TabletRepositoryTestFindAll.xml")
 public class TabletRepositoryTest {
+
     @Autowired
     private TabletRepository uut;
 
@@ -56,4 +57,6 @@ public class TabletRepositoryTest {
 
         assertFalse(uut.findOne(1L).isPresent());
     }
+
+
 }
