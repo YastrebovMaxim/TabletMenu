@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
@@ -35,10 +36,13 @@ public class DishControllerTest {
     @Mock
     private DishService dishService;
 
+    @InjectMocks
+    private DishController uut;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(new DishController(dishService)).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(uut).build();
     }
 
     @Test
@@ -83,16 +87,13 @@ public class DishControllerTest {
     @Test
     public void testCreateDish() throws Exception {
         Dish dish = createDish(null, "name", "desc", 14L);
-        when(dishService.addNewDish(any(Dish.class))).thenAnswer(new Answer<Dish>() {
-            @Override
-            public Dish answer(InvocationOnMock invocation) throws Throwable {
-                Dish dishArg = (Dish) invocation.getArguments()[0];
-                if (dishArg.getName().equals("name") && dishArg.getCost().equals(14L) && dishArg.getDescription().equals("desc")) {
-                    return createDish(1L, "name", "desc", 14L);
-                } else {
-                    fail();
-                    return null;
-                }
+        when(dishService.addNewDish(any(Dish.class))).thenAnswer(invocation -> {
+            Dish dishArg = (Dish) invocation.getArguments()[0];
+            if (dishArg.getName().equals("name") && dishArg.getCost().equals(14L) && dishArg.getDescription().equals("desc")) {
+                return createDish(1L, "name", "desc", 14L);
+            } else {
+                fail();
+                return null;
             }
         });
 
