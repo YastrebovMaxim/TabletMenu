@@ -1,6 +1,7 @@
 package ru.myastrebov.services;
 
 import ru.myastrebov.model.Dish;
+import ru.myastrebov.model.DishTag;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface DishService {
     Dish getDishById(Long id);
 
     Dish addNewDish(Dish dish);
+
+    List<DishTag> getAllTags();
+
+    List<Dish> findByTag(Long tagId);
 }

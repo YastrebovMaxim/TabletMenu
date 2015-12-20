@@ -17,9 +17,10 @@
         <hibernate.version>4.3.10.Final</hibernate.version>
         <hamcrest-all.version>1.3</hamcrest-all.version>
         <guava.version>18.0</guava.version>
-        <mockito-all.version>1.10.19</mockito-all.version>
+        <mockito.version>1.10.19</mockito.version>
         <junit.version>4.12</junit.version>
         <source.version>1.8</source.version>
+        <spring-hateoas.version>0.19.0.RELEASE</spring-hateoas.version>
     </properties>
 
     <dependencies>
@@ -125,6 +126,13 @@
             <artifactId>spring-test</artifactId>
             <version>${org.spring.version}</version>
         </dependency>
+        <!--hateoas-->
+        <dependency>
+            <groupId>org.springframework.hateoas</groupId>
+            <artifactId>spring-hateoas</artifactId>
+            <version>${spring-hateoas.version}</version>
+        </dependency>
+
         <!--In memory database driver-->
         <dependency>
             <groupId>com.h2database</groupId>
@@ -132,18 +140,28 @@
             <version>1.4.190</version>
         </dependency>
         <!--for tests-->
+
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito-all.version}</version>
-            <scope>test</scope>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
-        <!--for tests-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>hamcrest-core</artifactId>
+                    <groupId>org.hamcrest</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -233,6 +251,13 @@
             <version>1.2.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

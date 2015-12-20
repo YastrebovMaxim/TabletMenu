@@ -1,4 +1,4 @@
-package ru.myastrebov.dao.anotations;
+package ru.myastrebov.repository.anotations;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.springframework.test.annotation.DirtiesContext;
@@ -8,7 +8,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import ru.myastrebov.dao.config.DaoConfiguration;
+import ru.myastrebov.repository.config.DaoConfiguration;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

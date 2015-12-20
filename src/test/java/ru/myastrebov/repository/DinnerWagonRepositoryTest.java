@@ -1,4 +1,4 @@
-package ru.myastrebov.dao;
+package ru.myastrebov.repository;
 
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.myastrebov.dao.anotations.RepositoryTest;
+import ru.myastrebov.repository.anotations.RepositoryTest;
 import ru.myastrebov.model.DinnerWagon;
 
 import java.util.List;

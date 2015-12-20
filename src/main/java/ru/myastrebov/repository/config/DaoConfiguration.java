@@ -1,4 +1,4 @@
-package ru.myastrebov.dao.config;
+package ru.myastrebov.repository.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -22,8 +22,8 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {"ru.myastrebov.dao"})
-@ComponentScan(basePackages = {"ru.myastrebov.dao"})
+@EnableJpaRepositories(basePackages = {"ru.myastrebov.repository"})
+@ComponentScan(basePackages = {"ru.myastrebov.repository"})
 @PropertySource("classpath:dataBaseConfig.properties")
 public class DaoConfiguration {
 

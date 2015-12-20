@@ -22,6 +22,11 @@ public class DishTag {
         this.tagName = tagName;
     }
 
+    public DishTag(String tagName, Long id) {
+        this.tagName = tagName;
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

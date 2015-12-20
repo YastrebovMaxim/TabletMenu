@@ -1,4 +1,4 @@
-package ru.myastrebov.controllers;
+package ru.myastrebov.view.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"ru.myastrebov.controllers", "ru.myastrebov.services"})
+@ComponentScan(basePackages = {"ru.myastrebov.view.controllers", "ru.myastrebov.services"})
 public class WebConfiguration {
     @Bean
     public ViewResolver viewResolver() {

@@ -1,4 +1,4 @@
-package ru.myastrebov.dao;
+package ru.myastrebov.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

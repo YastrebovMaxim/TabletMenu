@@ -1,4 +1,4 @@
-package ru.myastrebov.dao;
+package ru.myastrebov.repository;
 
 import ru.myastrebov.model.DinnerWagon;
 

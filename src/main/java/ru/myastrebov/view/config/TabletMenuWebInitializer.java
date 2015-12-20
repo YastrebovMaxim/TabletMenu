@@ -1,7 +1,7 @@
-package ru.myastrebov.controllers;
+package ru.myastrebov.view.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import ru.myastrebov.dao.config.DaoConfiguration;
+import ru.myastrebov.repository.config.DaoConfiguration;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

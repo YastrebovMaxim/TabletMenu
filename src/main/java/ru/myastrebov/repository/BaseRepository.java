@@ -1,4 +1,4 @@
-package ru.myastrebov.dao;
+package ru.myastrebov.repository;
 
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
